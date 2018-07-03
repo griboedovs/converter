@@ -135,6 +135,15 @@ namespace converter.ViewModel
                 for (int i = 0; i < foundRows.Length; i++)
                 {
 
+                    if ((DateTime)foundRows[i]["Date"] == DateTime.Now.Date) {
+                        break;
+                    }
+                    else
+                    {
+                        InsertRowDStable(TableDS);
+                        CalculateBase.UpdateDataTableDataBase(DSet, "TempTable", "DataSetDataTable");
+                    }
+
                     if ((DateTime)foundRows[i]["Date"] < DateTime.Today.AddDays(-2))
                     {
                         TableDS.Rows[i].Delete();
@@ -146,17 +155,21 @@ namespace converter.ViewModel
                     }
                 }
 
-                foreach (DataRow item in foundRows)
-                {
+                //for (int i = 0; i < foundRows.Length; i++)
+                //{
 
-                    if (item.Field<DateTime>("Date") == DateTime.Now.Date)
-                        break;
-                    else
-                    {
-                        InsertRowDStable(TableDS);
-                        CalculateBase.UpdateDataTableDataBase(DSet, "TempTable", "DataSetDataTable");
-                    }
-                }
+                //    if ((DateTime)foundRows[i]["Date"] < DateTime.Today.AddDays(-2))
+                //    {
+                //        TableDS.Rows[i].Delete();
+                //        CalculateBase.UpdateDataTableDataBase(DSet, "TempTable", "DataSetDataTable");
+                //    }
+                //    else
+                //    {
+
+                //    }
+                //}
+
+
                 DSet.Clear();
                 TableDS.Clear();
             }
